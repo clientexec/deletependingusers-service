@@ -11,45 +11,45 @@ class PluginDeletependingusers extends ServicePlugin
     function getVariables()
     {
         $variables = array(
-            /*T*/'Plugin Name'/*/T*/   => array(
+            lang('Plugin Name')   => array(
                 'type'          => 'hidden',
-                'description'   => /*T*/''/*/T*/,
-                'value'         => /*T*/'Delete Pending Users'/*/T*/,
+                'description'   => '',
+                'value'         => lang('Delete Pending Users'),
             ),
-            /*T*/'Enabled'/*/T*/       => array(
+            lang('Enabled')       => array(
                 'type'          => 'yesno',
-                'description'   => /*T*/'Erases pending users after the amount of days selected without being approved.'/*/T*/,
+                'description'   => lang('Erases pending users after the amount of days selected without being approved.'),
                 'value'         => '0',
             ),
-            /*T*/'Amount of days'/*/T*/    => array(
+            lang('Amount of days')    => array(
                 'type'          => 'text',
-                'description'   => /*T*/'Set the amount of days before deleting a pending user from the system'/*/T*/,
+                'description'   => lang('Set the amount of days before deleting a pending user from the system'),
                 'value'         => '30',
             ),
-            /*T*/'Run schedule - Minute'/*/T*/  => array(
+            lang('Run schedule - Minute')  => array(
                 'type'          => 'text',
-                'description'   => /*T*/'Enter number, range, list or steps'/*/T*/,
+                'description'   => lang('Enter number, range, list or steps'),
                 'value'         => '30',
                 'helpid'        => '8',
             ),
-            /*T*/'Run schedule - Hour'/*/T*/  => array(
+            lang('Run schedule - Hour')  => array(
                 'type'          => 'text',
-                'description'   => /*T*/'Enter number, range, list or steps'/*/T*/,
+                'description'   => lang('Enter number, range, list or steps'),
                 'value'         => '01',
             ),
-            /*T*/'Run schedule - Day'/*/T*/  => array(
+            lang('Run schedule - Day')  => array(
                 'type'          => 'text',
-                'description'   => /*T*/'Enter number, range, list or steps'/*/T*/,
+                'description'   => lang('Enter number, range, list or steps'),
                 'value'         => '*',
             ),
-            /*T*/'Run schedule - Month'/*/T*/  => array(
+            lang('Run schedule - Month')  => array(
                 'type'          => 'text',
-                'description'   => /*T*/'Enter number, range, list or steps'/*/T*/,
+                'description'   => lang('Enter number, range, list or steps'),
                 'value'         => '*',
             ),
-            /*T*/'Run schedule - Day of the week'/*/T*/  => array(
+            lang('Run schedule - Day of the week')  => array(
                 'type'          => 'text',
-                'description'   => /*T*/'Enter number in range 0-6 (0 is Sunday) or a 3 letter shortcut (e.g. sun)'/*/T*/,
+                'description'   => lang('Enter number in range 0-6 (0 is Sunday) or a 3 letter shortcut (e.g. sun)'),
                 'value'         => '*',
             ),
         );
