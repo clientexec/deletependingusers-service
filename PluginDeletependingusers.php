@@ -1,5 +1,7 @@
 <?php
 require_once 'modules/admin/models/ServicePlugin.php';
+require_once 'modules/admin/models/StatusAliasGateway.php';
+
 /**
 * @package Plugins
 */
@@ -68,12 +70,13 @@ class PluginDeletependingusers extends ServicePlugin
     {
         $arrayUsersToDelete = array();
         $daysToDeleteUser = $this->settings->get('plugin_deletependingusers_Amount of days');
-        $result = $this->getUsersWithStatus(0);
+        $statusPending = StatusAliasGateway::getInstance($this->user)->getUserStatusIdsFor(USER_STATUS_PENDING);
+        $result = $this->getUsersWithStatus($statusPending);
         $num_rows = $result->getNumRows();
         if($num_rows > 0){
             $tempActualDate = strtotime(date('Y-m-d'));
             while(list($id, $dateactivated, $status) = $result->fetch()){
-                if($status == 0){
+                if (in_array($status, $statusPending)) {
                     $diffdate = $tempActualDate - $dateactivated;
                     $diffdate = $diffdate/(60*60*24);
                     if($diffdate >= $daysToDeleteUser){
@@ -134,9 +137,10 @@ class PluginDeletependingusers extends ServicePlugin
 
     function dashboard()
     {
+        $statusPending = StatusAliasGateway::getInstance($this->user)->getUserStatusIdsFor(USER_STATUS_PENDING);
         $daysToDeleteUser = !is_null($this->settings->get('plugin_deletependingusers_Amount of days')) ? $this->settings->get('plugin_deletependingusers_Amount of days')*24*60*60 : 0;
-    	$query = "SELECT COUNT(id) FROM users WHERE status = ? AND NOW() - UNIX_TIMESTAMP(dateactivated) >= $daysToDeleteUser";
-        $result = $this->db->query($query,0);
+    	$query = "SELECT COUNT(id) FROM users WHERE status IN (".implode(', ', $statusPending).") AND NOW() - UNIX_TIMESTAMP(dateactivated) >= $daysToDeleteUser";
+        $result = $this->db->query($query);
     	list($numberOfUsersToDelete) = $result->fetch();
         return $this->user->lang('Pending users to be deleted on next run: %d', $numberOfUsersToDelete);
     }
